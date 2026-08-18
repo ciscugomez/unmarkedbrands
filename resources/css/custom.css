@@ -1,0 +1,20 @@
+/* #nav {
+    position: fixed;
+
+} */
+
+.input {
+    background-color: rgb(255, 0, 0)
+}
+
+.trix-button-group--file-tools {
+    display: none !important;
+}
+
+.trix-button-group--block-tools{
+    display: none !important;
+}
+
+.trix-button--icon-link{
+    display: none !important;
+}
