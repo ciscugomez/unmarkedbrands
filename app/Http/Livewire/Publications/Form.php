@@ -317,6 +317,7 @@ class Form extends Component
                 } else {
                     $images = $value['value'];
                     $limit  = $value['limit'];
+                     // \Illuminate\Support\Facades\Log::info('DEBUG imagenes', ['images' => $images, 'limit' => $limit]);
                     if (count($images) != $limit || in_array(null, $images)) {
                         $this->alertModal = true;
                         throw new Exception('Debes subir en total ' . $limit . ' imágenes.');

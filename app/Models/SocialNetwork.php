@@ -18,6 +18,6 @@ class SocialNetwork extends Model
     ];
 
     public function temporaryImage(){
-        return Storage::disk('s3')->temporaryUrl('unmarked/social-networks/'.$this->icon, now()->addMinutes(5));
+        return Storage::disk('public')->url('unmarked/social-networks/'.$this->icon);
     }
 }

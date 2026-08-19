@@ -54,10 +54,8 @@ class Profile extends Component
         if ($this->user->account->nickname != $nickname) {
             abort(401);
         }
-        $this->image    = Storage::disk('s3')->temporaryUrl(
-            $this->user->image,
-            now()->addMinutes(5)
-        );
+        $this->image = Storage::disk('public')->url
+        ($this->user->image);
         $this->showImage = auth()->user()->temporaryImage();
         $this->socialNetworks       = SocialNetwork::all();
         $this->account              = $this->user->account;
@@ -71,14 +69,14 @@ class Profile extends Component
             // verify if exist value in constants
             if (!in_array($value, Constant::IMAGES)) {
                 $name               = Uuid::uuid4() . '.' . $value->getClientOriginalExtension();
-                if (Storage::disk('s3')->exists('unmarked/profile/' . $this->user->image)) {
-                    Storage::disk('s3')->delete('unmarked/profile/' . $this->user->image);
+                if (Storage::disk('public')->exists('unmarked/profile/' . $this->user->image)) {
+                    Storage::disk('public')->delete('unmarked/profile/' . $this->user->image);
                 }
 
-                $url                = $this->image->storeAs('unmarked/profile', $name, 's3');
-                $imageToResize      = Storage::disk('s3')->temporaryUrl($url, now()->addMinutes(5));
+                $url                = $this->image->storeAs('unmarked/profile', $name, 'public');
+                $imageToResize = Storage::disk('public')->url($url);
                 $resizedImage       = Intervention::resizeImage($imageToResize, 500, 500);
-                Storage::disk('s3')->put($url, $resizedImage);
+                Storage::disk('public')->put($url, $resizedImage);
 
                 $this->user->update(
                     [

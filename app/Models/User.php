@@ -66,11 +66,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function temporaryImage(){
         if (!$this->default_image) {
-            return Storage::disk('s3')->temporaryUrl(
-                'unmarked/profile/'.$this->image,
-                now()->addMinutes(5)
-            );
-        }else{
+            return Storage::disk('public')->url('unmarked/profile/'.$this->image);
+            }else{
             return asset('profile/'.$this->image);
         }
 

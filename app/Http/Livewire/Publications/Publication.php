@@ -86,8 +86,8 @@ class Publication extends Component
 
     public function removeImages($url)
     {
-        if (Storage::disk('s3')->exists($url)) {
-            Storage::disk('s3')->delete($url);
+        if (Storage::disk('public')->exists($url)) {
+            Storage::disk('public')->delete($url);
         }
     }
 }
